@@ -3,7 +3,10 @@ on:
   workflow_dispatch: 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest , ubuntu-20.04]
     concurrency:
         group: production-pythons
         cancel-in-progress: true
@@ -11,7 +14,6 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v4
-
 
     - name: Set up Python 3.11
       uses: actions/setup-python@v5
