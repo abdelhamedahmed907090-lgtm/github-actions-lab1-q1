@@ -1,0 +1,37 @@
+name: if 
+on:
+  workflow_dispatch: 
+  push:
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      max-parallel: 2
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest , windows-latest , ubuntu-20.04 , ubuntu-22.04]
+        exclude:
+          - os: ubuntu-20.04
+    concurrency:
+        group: production-pythons ${{ matrix.os }}
+        cancel-in-progress: true
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/head/main'
+    steps:
+      - name: Deploying
+        run: echo "Delpoy"
