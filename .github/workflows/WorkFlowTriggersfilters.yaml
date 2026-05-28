@@ -1,0 +1,17 @@
+name: WorkFlow Triggers
+on:
+ push:
+    branches:
+       - 'main'
+       - '!Features'
+    paths-ignore:
+       - 'README.md'
+       - 'docs/**'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy Steps Test
+      run: echo "Hello all"
+    
+        
