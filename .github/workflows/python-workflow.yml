@@ -8,7 +8,7 @@ jobs:
       matrix:
         os: [ubuntu-latest , ubuntu-20.04]
     concurrency:
-        group: production-pythons
+        group: production-pythons ${{ matrix.os }}
         cancel-in-progress: true
 
     steps:
