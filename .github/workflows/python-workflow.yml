@@ -27,3 +27,10 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
+        
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/head/main'
+    steps:
+      - name: Deploying
+        run: echo "Delpoy"
